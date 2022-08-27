@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>CALL-ME By Ajay Kumar</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" type="text/css" href="style3.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+<body>
+    
+<div class="container" >
+    <div class="logo">
+        <a href="#"><img src="gsm.jpg" alt="logo"></a>
+    </div>
+<div class="navbar">
+
+<div class="icon-bar" onclick="Show()">
+    <i></i>
+    <i></i>
+    <i></i>
+</div>
+
+<ul id="nav-lists" style="font-size: 20px">
+    <li class="close"><span onclick="Hide()">×</span></li>
+    <li><a href="#About"><b>HOME</b></a></li>
+    <li><a href="#coding"><strong>CODE</strong></a></li>
+    <li><a href="#"><strong>CONTACT</strong></a></li>
+<li ><a href="#Component"><strong>COMPONENTS</strong></a></li>
+</ul>
+
+</div>
+</div>
+  
+
+<div class="row" id="About">
+  <div class="leftcolumn">
+    <div class="card" style="margin-top: 10px; width:100%;">
+      <h2>{CALL-MEE}...</h2>
+      <h5>FOR THE PATEINT... BY AN ENGINEER... MAR 25, 2022</h5>
+      <hr style="width: 40%; margin-left: 0px;">
+      <div class="image" style="height:200px;">
+        <img src="gsm.jpg">
+      </div>
+        <p> It is probably not my first project that is based on the use of Aurdino but,I can say this can be a Life Saver for many pateint.It will be an interesting solution for children, older people and those who have Health Problem's.So, let's have some talk about  <strong>"HOW.. WHEN..WHY.."</strong></p>
+        <p>Actually, this Idea came in my when I was in Second Year of My B-tech.I thought that their are many patient who live alone at home.And in case of Emergency they need help as soon as possible.So, they use to call someone to help via call,but he/she can call only one  at a time.And in that condition the Patient is not able to call each and everyone of his/her family member.So,here the role of my Project comes...</p>
+        <h3>FEATURES OF CALL-MEE..</h3>
+        <ul>
+ <li style="list-style:square;">ALLOW USER TO CALL TOP 5-10 EMERGENCY NUMBER SAVED IN THE SYSTEM</li>
+ <BR>
+ <li style="list-style:square;">USER CAN CALL ALL OF THEM WITH A SINGLE CLICK</li>
+ <BR>
+ <li style="list-style:square;">USER CAN ACTIVATE THE SYSTEM BY USING THE WRISTHAND SWITCH</li>
+<BR>
+  <li style="list-style:square;">USERS VITAL READINGS WILL BE SHARED VIA MESSAGE</li>
+  <BR>
+  <li style="list-style:square;">NEAREST HOSPITAL WILL RECIEVE AN EMERGENCY CALL VIA SYSTEM FOR HELP </li>
+</ul>
+<BR>
+<li style="list-style:square;"><em>" NO PATIENT WILL DIE FOR NOT GETTING HELP ON TIME "</li>
+    </div>
+    <h2>Components We Require</h2>
+    <div class="row2" id ="Component">
+  <div class="column2">
+      <h3 style="padding-left: 10px;">ARDIUNO</h3>
+<img src="arduno.jpg" style="width: 100%;">
+    
+  </div>
+
+  <div class="column2">
+      <h3 style="padding-left: 10px;">CIRCUIT</h3>
+      <img src="arduno.jpg" style="width: 100%;">
+  </div>
+  
+  <div class="column2">
+        <h3 style="padding-left: 10px;">GSM MODULE</h3>
+      <p><img src="arduno.jpg" style="width: 100%;">
+</p>    
+  </div>
+  
+  <div class="column2">
+      <h3 style="padding-left: 10px;">JUMPING WIRES</h3>
+      <img src="arduno.jpg" style="width: 100%;">
+  </div>
+</div>
+
+        <div class="card " style="margin-top: 20px;">
+      <h2>LET'S DO IT...</h2>
+      
+      <div class="image"><img src="gsmd.jpg" width="300px;">
+    </div>
+    <h4>STEP 1:- Sim Module</h4>
+      <p> I planned that I would start creating this project from creating a prototype on a breadboard. After a few minutes of browsing projects with GSM modules, I decided to order the sim900l module, because it is simply and support all sim.</p>
+<img src="gsmd.jpg" width="300px;">
+      <h4>STEP 2:- Connection and Power</h4>
+      <P>I connected the Arduino, GSM module, resistors and transistor to the board and connected all components accordingly.It requires a 5V power supply. I will use a battery from an old smartphone. After connecting the wires from the power supply, the LED should blink every second, which means that the module cannot connect to the network.</P>
+<img src="gsmd.jpg" width="300px;">
+    <h4>STEP 3:- Inserting a Sim Card</h4>
+    <p>
+      Now I put a sim card in it and the LED flashes every 3 seconds, informing that the module is connected to the network
+. After uploading the sketch and entering "ATD+yyXXXXXXXXX;" command, the module should make the call. Then I connected three switches to the Arduino, the first to choose the number, the second to start the call and the third to end the call. I added a few lines to the earlier mentioned program and uploaded it to Arduino.yy - your area code
+XXXXXXXXX - your number
+You can Check all AT Commands<a href="https://bit.ly/32DQ8nb"target="_blank"><--Click here--></a>
+    </p>
+    </div>
+    <section id="coding">
+        <div class="card">
+      <h2>IT'S CODING TIME..</h2>
+
+      <pre>
+  <code>
+  #include <SoftwareSerial.h>
+char dane;
+String Arsp, Grsp;
+SoftwareSerial mySerial(10, 11); // RX, TX
+
+int but1 = 3;
+int but2 = 4;
+int but3 = 5;
+int onModulePin = 2;
+int disc;
+int call;
+int number;
+unsigned long nr;
+
+const char phone_numberA[] = "WRITE YOUR NUMBER";
+
+void setup() {
+ 
+  Serial.begin(9600);
+  mySerial.begin(4800);
+   Serial.println("Starting...");
+
+  pinMode(but1, INPUT);
+  pinMode(but2, INPUT);
+  pinMode(but3, INPUT);
+
+
+  Serial.println("Press a button");
+
+}
+
+void loop() {
+call = digitalRead(but1);
+number = digitalRead(but2);
+disc = digitalRead(but3);
+
+if(call == HIGH)
+{
+ delay(200);
+ Serial.println("making call");
+ String cmd;
+ cmd = "ATD";
+ cmd += ("+48");
+ cmd += nr;
+ cmd += ";";
+ mySerial.println(cmd); 
+}
+
+if(number == HIGH)
+{
+ delay(200);
+ Serial.println("nr choosed");
+ nr = WRITE YOUR NUMBER;  
+}
+
+if(disc == HIGH)
+{
+ delay(200);
+ Serial.println("disconnected");
+ mySerial.println("ATH");  
+}
+    
+   if(mySerial.available())
+  {
+    Grsp = mySerial.readString();
+    Serial.println(Grsp);
+  }
+
+  if(Serial.available())
+  {
+    Arsp = Serial.readString();
+    mySerial.println(Arsp);
+  }
+  
+  
+
+}
+  </code>
+</pre>
+    </div>
+    </section>
+    <div class="seprator">
+  <hr>
+</div>
+
+  </div>
+  <div class="rightcolumn"
+  style="margin-top: 5px;">
+    <div class="card">
+      <h2>About Me</h2>
+      <div>
+        <img src="arduno.jpg" style="width: 200px; align-content: left ;border-radius: 50px;">
+      </div>
+      <p>I am Ajay Kumar, Curently Pursing B-Tech form IT. Making New Inovation and Convert  Ideas into Reality  is my passion....</p>
+    </div>
+<hr>
+
+
+
+    <div class="card">
+      <h3>Popular Post</h3>
+      <div>
+        <a target="_blank" id="anc"
+         href="https://create.arduino.cc/projecthub/windowsiot/basic-windows-remote-arduino-47eeb9?ref=tag&ref_id=arduino&offset=0">
+         <img src="gsm.jpg" style="margin-bottom: 10px;">
+      
+        <p>
+          <H3>Window Remote Arduino</H3>
+In this project, we will use Windows Remote Arduino to turn an LED on and off. It is a simple example, but will reveal ...</p>
+</a></div><br>
+<hr>
+      <div ><a target="_blank" id="anc"
+         href=https://create.arduino.cc/projecthub/BuildItDR/arduino-lie-detector-a0b914?ref=tag&ref_id=arduino&offset=5>
+         <img src="gsm.jpg" style="margin-bottom: 10px;">
+      
+        <p>
+          <H3>Lie Detector By Ardiuno</H3>
+In this project, I will show you how to make an Arduino-controlled lie detector to see when your friends are lying ...</p>
+</a></div><br>
+<hr>
+      <div >
+        <a target="_blank" id="anc"
+         href=https://create.arduino.cc/projecthub/BuildItDR/arduino-lie-detector-a0b914?ref=tag&ref_id=arduino&o>     
+         <img src="gsm.jpg" style="margin-bottom: 10px;">
+
+      <p>
+          <H3>Temprature Monitoring System </H3>
+This is very simple and small post but always simple and small things make smart and enterprise products...</p>
+</a>
+      </div>
+    </div>
+    <div class="seprator">
+  <hr>
+</div>
+
+    <div class="card">
+      <h3>Follow Me..</h3>
+      <p><a href="#" class="fa fa-facebook"></a>
+        <a href="#" class="fa fa-linkedin"></a>
+        <a href="#" class="fa fa-instagram"></a>
+        <a href ="#"class="fa fa-github"></a>
+      </p>
+    </div>
+  </div>
+</div>
+
+<div class="footer" >
+  <h2 style="color: White;">{.."Written by Ajay Kumar"..}</h2>
+</div>
+<script>
+var navList = document.getElementById("nav-lists");
+function Show() {
+navList.classList.add("_Menus-show");
+}
+
+function Hide(){
+navList.classList.remove("_Menus-show");
+}
+</script>
+   
+</body>
+</html>
