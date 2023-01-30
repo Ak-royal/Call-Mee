@@ -102,43 +102,46 @@ XXXXXXXXX - your number
 You can Check all AT Commands<a href="https://bit.ly/32DQ8nb"target="_blank"><--Click here--></a>
     </p>
     </div>
-    <section id="coding">
-        <div class="card">
-      <h2>IT'S CODING TIME..</h2>
+    #include <SoftwareSerial.h>
+#include <string.h>
 
-      <pre>
-  <code>
-  #include <SoftwareSerial.h>
-char dane;
-String Arsp, Grsp;
-SoftwareSerial mySerial(10, 11); // RX, TX
+SoftwareSerial mySerial(7, 8); // RX, TX
 
-int but1 = 3;
-int but2 = 4;
-int but3 = 5;
-int onModulePin = 2;
-int disc;
-int call;
-int number;
-unsigned long nr;
+const char numbers[5][20] = {
+  "+1xxxxxxxxxx",
+  "+1xxxxxxxxxx",
+  "+1xxxxxxxxxx",
+  "+1xxxxxxxxxx",
+  "+1xxxxxxxxxx"
+};
 
-const char phone_numberA[] = "WRITE YOUR NUMBER";
-
-void setup() {
- 
-  Serial.begin(9600);
-  mySerial.begin(4800);
-   Serial.println("Starting...");
-
-  pinMode(but1, INPUT);
-  pinMode(but2, INPUT);
-  pinMode(but3, INPUT);
-
-
-  Serial.println("Press a button");
-
+void callNumber(const char *number) {
+  mySerial.println("ATD " + String(number) + ";");
+  delay(10000);
+  mySerial.println("ATH");
+  delay(1000);
 }
 
+void setup() {
+  // Open serial communications and wait for port to open:
+  Serial.begin(9600);
+  while (!Serial) {
+    ; // wait for serial port to connect. Needed for native USB port only
+  }
+
+  // Start the GSM module serial connection
+  mySerial.begin(9600);
+  Serial.println("Initializing...");
+  delay(1000);
+  mySerial.println("AT");
+  delay(1000);
+
+  for (int i = 0; i < 5; i++) {
+    callNumber(numbers[i]);
+  }
+
+  Serial.println("Calls made");
+}
 void loop() {
 call = digitalRead(but1);
 number = digitalRead(but2);
@@ -199,7 +202,7 @@ if(disc == HIGH)
     <div class="card">
       <h2>About Me</h2>
       <div>
-        <img src="self.jpg" style="width: 200px; align-content: left ;border-radius: 50px;">
+        <img src="3" style="width: 200px; align-content: left ;border-radius: 50px;">
       </div>
       <p>We are a group of Aspiring Engineer's Curently Pursing B-Tech form IT. Making New Inovation and Convert  Ideas into Reality  is my passion....</p>
     </div>
